@@ -21,28 +21,5 @@ public class RestaurantsController(IMediator mediator) : BaseController(mediator
     public async Task<IActionResult> Delete(DeleteRestaurantCommand command) => await Execute(command);
 
     [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update(long id, [FromBody] CreateRestaurantDto dto)
-    {
-        var command = new UpdateRestaurantCommand()
-        {
-            Title = dto.Title,
-            Description = dto.Description,
-            KitchenType = dto.KitchenType,
-            Contact = dto.Contact,
-            ReservationThreshold = dto.ReservationThreshold,
-            Cost = dto.Cost,
-            EndWorkTime = dto.EndWorkTime,
-            StartWorkTime = dto.StartWorkTime,
-            Pictures = new List<RestaurantPictureDto>(),
-            Id = id,
-            Menu = dto.Menu,
-        };
-        var result = await mediator.Send(command);
-        if (!result.IsSuccessfull)
-        {
-            return BadRequest(result.GetErrors().First());
-        }
-
-        return Ok();
-    }
+    public async Task<IActionResult> Update(UpdateRestaurantCommand command) => await Execute(command);
 }

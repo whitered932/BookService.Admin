@@ -12,6 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddMediatR(x => x.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.RegisterRepository<IRestaurantRepository, RestaurantRepository>();
+builder.Services.RegisterRepository<ITableRepository, TableRepository>();
 builder.Services.AddDbContext<BookServiceDbContext>();
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";

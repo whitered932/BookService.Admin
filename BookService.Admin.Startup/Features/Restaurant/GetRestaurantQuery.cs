@@ -20,6 +20,6 @@ public sealed class GetRestaurantQueryHandler(IRestaurantRepository restaurantRe
         {
             return Successful(new RestaurantDto());
         }
-        return Successful(Converter.Convert(restaurant));
+        return Successful(RestaurantConverter.Convert(restaurant));
     }
 }

@@ -16,7 +16,7 @@ public class BookServiceDbContext : DbContext, IUnitOfWork
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=postgres;Username=postgres;Password=postgres");
+        optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=booking-service;Username=postgres;Password=postgres");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

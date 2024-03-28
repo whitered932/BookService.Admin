@@ -15,6 +15,6 @@ public sealed class GetRestaurantsQueryHandler(IRestaurantRepository restaurantR
     public override async Task<Result<IReadOnlyList<RestaurantDto>>> Handle(GetRestaurantsQuery request, CancellationToken cancellationToken)
     {
         var restaurants = await restaurantRepository.ListAsync(cancellationToken);
-        return Successful(Converter.Convert(restaurants));
+        return Successful(RestaurantConverter.Convert(restaurants));
     }
 }

@@ -9,17 +9,8 @@ namespace BookService.Admin.Startup.Features.Restaurant;
 
 public class UpdateRestaurantCommand : Command
 {
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public string StartWorkTime { get; set; }
-    public string EndWorkTime { get; set; }
-    public RestaurantContact Contact { get; set; }
-    public KitchenType KitchenType { get; set; }
-    public double Cost { get; set; }
-    public int ReservationThreshold { get; set; }
-    public List<RestaurantPictureDto> Pictures { get; set; } = [];
-    public List<RestaurantMenuItemDto> Menu { get; set; } = [];
-    public long Id { get; set; }
+    [FromBody] public UpdateRestaurantDto Data { get; set; }
+    [FromRoute] public long Id { get; set; }
 }
 
 public sealed class UpdateRestaurantCommandHandler(IRestaurantRepository restaurantRepository)
@@ -33,19 +24,20 @@ public sealed class UpdateRestaurantCommandHandler(IRestaurantRepository restaur
             return Successful();
         }
 
-        var newContact = Converter.Convert(request.Contact);
-        var newKitchenType = Converter.Convert(request.KitchenType);
-        var newPictures = Converter.Convert(request.Pictures);
-        var menu = Converter.Convert(request.Menu);
+        var dto = request.Data;
+        var newContact = RestaurantConverter.Convert(dto.Contact);
+        var newKitchenType = RestaurantConverter.Convert(dto.KitchenType);
+        var newPictures = RestaurantConverter.Convert(dto.Pictures);
+        var menu = RestaurantConverter.Convert(dto.Menu);
         restaurant.Update(
-            request.Title,
-            request.Description,
-            request.StartWorkTime,
-            request.EndWorkTime,
+            dto.Title,
+            dto.Description,
+            dto.StartWorkTime,
+            dto.EndWorkTime,
             newContact,
             newKitchenType,
-            request.Cost,
-            request.ReservationThreshold,
+            dto.Cost,
+            dto.ReservationThreshold,
             newPictures,
             menu);
         await restaurantRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
