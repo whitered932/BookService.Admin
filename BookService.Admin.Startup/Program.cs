@@ -2,6 +2,7 @@ using BookService.Domain.Repositories;
 using BookService.Infrastructure.Storage;
 using BookService.Infrastructure.Storage.Repositories;
 using Ftsoft.Storage.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,13 +14,15 @@ builder.Services.AddControllers();
 builder.Services.AddMediatR(x => x.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.RegisterRepository<IRestaurantRepository, RestaurantRepository>();
 builder.Services.RegisterRepository<ITableRepository, TableRepository>();
-builder.Services.AddDbContext<BookServiceDbContext>();
 
-var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+var db = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<BookServiceDbContext>(opt => { opt.UseNpgsql(db); });
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
-        policy  =>
+        policy =>
         {
             policy.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
         });
