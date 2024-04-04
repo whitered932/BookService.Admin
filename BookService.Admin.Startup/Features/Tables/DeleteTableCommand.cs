@@ -11,9 +11,9 @@ public class DeleteTableCommand : Command
     [FromRoute] public long Id { get; set; }
 }
 
-public class DeleteTableCommandHandler(ITableRepository tableRepository) : CommandHandler<DeleteRestaurantCommand>
+public class DeleteTableCommandHandler(ITableRepository tableRepository) : CommandHandler<DeleteTableCommand>
 {
-    public override async Task<Result> Handle(DeleteRestaurantCommand request, CancellationToken cancellationToken)
+    public override async Task<Result> Handle(DeleteTableCommand request, CancellationToken cancellationToken)
     {
         var table = await tableRepository.SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
         await tableRepository.RemoveAsync(table!);

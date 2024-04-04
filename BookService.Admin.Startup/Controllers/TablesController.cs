@@ -22,5 +22,5 @@ public class TablesController(IMediator mediator) : BaseController(mediator)
     public async Task<IActionResult> Delete(DeleteTableCommand command) => await Execute(command);
 
     [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update(UpdateRestaurantCommand command) => await Execute(command);
+    public async Task<IActionResult> Update(UpdateTableCommand command) => await Execute(command);
 }
