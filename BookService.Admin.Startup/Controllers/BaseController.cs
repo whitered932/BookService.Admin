@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookService.Admin.Startup.Controllers;
 
-[Route(("api/admin/[controller]"))]
 public class BaseController(IMediator mediator) : ControllerBase
 {
     private CancellationToken CancellationToken => HttpContext.RequestAborted;

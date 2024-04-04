@@ -27,4 +27,7 @@ public class BookServiceDbContext : DbContext, IUnitOfWork
 
 
     public DbSet<Restaurant> Restaurants { get; set; }
+    public DbSet<Table> Tables { get; set; }
+    public DbSet<Client> Clients  { get; set; }
+    public DbSet<AuthorizationToken> AuthorizationTokens  { get; set; }
 }

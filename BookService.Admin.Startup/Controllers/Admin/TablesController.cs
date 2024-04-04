@@ -1,12 +1,11 @@
-using BookService.Admin.Startup.Features.Restaurant;
 using BookService.Admin.Startup.Features.Tables;
 using BookService.Admin.Startup.Features.Tables.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookService.Admin.Startup.Controllers;
+namespace BookService.Admin.Startup.Controllers.Admin;
 
-public class TablesController(IMediator mediator) : BaseController(mediator)
+public class TablesController(IMediator mediator) : AdminBaseController(mediator)
 {
     [HttpGet]
     public async Task<ActionResult<IReadOnlyList<TableDto>>> GetMany(GetTablesQuery query) =>

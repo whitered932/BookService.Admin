@@ -1,7 +1,9 @@
+using BookService.Admin.Startup.Features.Restaurant.Models;
 using BookService.Domain.Models;
 using BookService.Domain.Models.Enums;
+using RestaurantContact = BookService.Admin.Startup.Features.Restaurant.Models.RestaurantContact;
 
-namespace BookService.Admin.Startup.Features.Restaurant.Models;
+namespace BookService.Admin.Startup.Converters;
 
 public static class RestaurantConverter
 {
@@ -11,7 +13,7 @@ public static class RestaurantConverter
         string startWorkTimeUtc,
         string endWorkTimeUtc,
         RestaurantContact contact,
-        Enums.KitchenType kitchenType,
+        Features.Restaurant.Enums.KitchenType kitchenType,
         double cost,
         int reservationThreshold,
         List<RestaurantPictureDto> pictures,
@@ -118,13 +120,13 @@ public static class RestaurantConverter
         };
     }
 
-    public static KitchenType Convert(Enums.KitchenType kitchenType)
+    public static KitchenType Convert(Features.Restaurant.Enums.KitchenType kitchenType)
     {
         return (KitchenType)(long)kitchenType;
     }
 
-    public static Enums.KitchenType Convert(KitchenType kitchenType)
+    public static Features.Restaurant.Enums.KitchenType Convert(KitchenType kitchenType)
     {
-        return (Enums.KitchenType)(long)kitchenType;
+        return (Features.Restaurant.Enums.KitchenType)(long)kitchenType;
     }
 }

@@ -3,9 +3,9 @@ using BookService.Admin.Startup.Features.Restaurant.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookService.Admin.Startup.Controllers;
+namespace BookService.Admin.Startup.Controllers.Admin;
 
-public class RestaurantsController(IMediator mediator) : BaseController(mediator)
+public class RestaurantsController(IMediator mediator) : AdminBaseController(mediator)
 {
     [HttpGet]
     public async Task<ActionResult<IReadOnlyList<RestaurantDto>>> GetMany([FromQuery] GetRestaurantsQuery query) =>

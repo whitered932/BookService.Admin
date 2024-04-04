@@ -9,6 +9,7 @@
     <ItemGroup>
         <PackageReference Include="Ftsoft.Application.Cqs.Mediatr" Version="1.0.2" />
         <PackageReference Include="Ftsoft.Storage.EntityFramework" Version="1.0.2" />
+        <PackageReference Include="MailKit" Version="4.4.0" />
         <PackageReference Include="MediatR" Version="12.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
