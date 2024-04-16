@@ -18,6 +18,7 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.RegisterRepository<IRestaurantRepository, RestaurantRepository>();
 builder.Services.RegisterRepository<ITableRepository, TableRepository>();
+builder.Services.RegisterRepository<IReservationRepository, ReservationRepository>();
 builder.Services.RegisterRepository<IClientRepository, ClientRepository>();
 builder.Services.RegisterRepository<IAuthorizationTokenRepository, AuthorizationTokenRepository>();
 
