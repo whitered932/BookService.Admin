@@ -88,6 +88,6 @@ public sealed class GetTimeSlotsQueryHandler(
             }
         }
 
-        return Successful(timeSlots);
+        return Successful(timeSlots.OrderBy(x => x.AvailablePlaces).ToList());
     }
 }
