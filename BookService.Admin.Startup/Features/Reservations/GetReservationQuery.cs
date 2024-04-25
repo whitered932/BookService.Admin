@@ -1,4 +1,5 @@
-﻿using BookService.Admin.Startup.Features.Reservations.Models;
+﻿using BookService.Admin.Startup.Features.Reservations.Errors;
+using BookService.Admin.Startup.Features.Reservations.Models;
 using BookService.Domain.Repositories;
 using Ftsoft.Application.Cqs.Mediatr;
 using Ftsoft.Common.Result;
@@ -16,8 +17,15 @@ public sealed class GetReservationQueryHandler(IReservationRepository reservatio
     public override async Task<Result<ReservationDto>> Handle(GetReservationQuery request, CancellationToken cancellationToken)
     {
         var reservation = await reservationRepository.SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+        if (reservation is null)
+        {
+            return Error(ReservationNotFoundError.Instance);
+        }
         var client = await clientRepository.SingleOrDefaultAsync(x => reservation.ClientId == x.Id, cancellationToken);
-
+        if (client is null)
+        {
+            return Error(ClientNotFoundError.Instance);
+        }
         var result = new ReservationDto()
         {
             Comment = reservation.Comment,
@@ -27,9 +35,10 @@ public sealed class GetReservationQueryHandler(IReservationRepository reservatio
             TableId = reservation.Table.TableId,
             ReservedPlacesCount = reservation.Table.PlaceIds.Count,
             Id = reservation.Id,
-            ClientEmail = client?.Email,
-            ClientPhone = client?.PhoneNumber,
-            ClientName = client?.Name,
+            ClientEmail = client.Email,
+            ClientPhone = client.PhoneNumber,
+            ClientName = client.Name,
+            Status = reservation.Status
         };
 
         return Successful(result);

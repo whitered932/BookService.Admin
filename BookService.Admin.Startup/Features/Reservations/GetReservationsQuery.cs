@@ -33,6 +33,7 @@ public sealed class GetReservationsQueryHandler(IReservationRepository reservati
             ClientEmail = clientsById[(long)x.ClientId].Email,
             ClientPhone = clientsById[(long)x.ClientId].PhoneNumber,
             ClientName = clientsById[(long)x.ClientId].Name,
+            Status = x.Status
         }).ToList();
         return Successful(result);
     }

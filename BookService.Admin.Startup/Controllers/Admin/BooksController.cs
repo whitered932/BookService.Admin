@@ -12,4 +12,20 @@ public class BooksController(IMediator mediator) : AdminBaseController(mediator)
     
     [HttpGet("{id:long}")]
     public Task<ActionResult<ReservationDto>> Book(GetReservationQuery query) => Execute(query);
+    
+    [HttpDelete("{id:long}")]
+    public Task<IActionResult> Delete(DeleteReservationCommand command) => Execute(command);
+    
+    [HttpPut("{id:long}")]
+    public Task<IActionResult> Update(UpdateReservationCommand query) => Execute(query);
+    
+    [HttpPost("submit")]
+    public Task<IActionResult> Submit(SubmitReservationCommand command) => Execute(command);
+    
+    [HttpPost("cancel")]
+    public Task<IActionResult> Cancel(CancelReservationCommand command) => Execute(command);
+    
+    [HttpPost]
+    public Task<IActionResult> Create(CreateReservationCommand query) => Execute(query);
+
 }

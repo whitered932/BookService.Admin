@@ -28,6 +28,21 @@ public class Reservation : BaseModel
 
     public long RestaurantId { get; private set; }
     public long? ClientId { get; private set; }
+
+    public void Accept()
+    {
+        Status = ReservationStatus.AcceptedByManager;
+    }
+
+    public void DeclineByManager()
+    {
+        Status = ReservationStatus.DeclinedByManager;
+    }
+
+    public void Update(string comment)
+    {
+        Comment = comment;
+    }
 }
 
 public class TableInfo
