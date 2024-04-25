@@ -20,10 +20,10 @@ public class BooksController(IMediator mediator) : AdminBaseController(mediator)
     public Task<IActionResult> Update(UpdateReservationCommand query) => Execute(query);
     
     [HttpPost("submit")]
-    public Task<IActionResult> Submit(SubmitReservationCommand command) => Execute(command);
+    public Task<IActionResult> Submit([FromBody] SubmitReservationCommand command) => Execute(command);
     
     [HttpPost("cancel")]
-    public Task<IActionResult> Cancel(CancelReservationCommand command) => Execute(command);
+    public Task<IActionResult> Cancel([FromBody] CancelReservationCommand command) => Execute(command);
     
     [HttpPost]
     public Task<IActionResult> Create(CreateReservationCommand query) => Execute(query);
