@@ -12,7 +12,7 @@ public class GetReservationsQuery : Query<IReadOnlyList<ReservationDto>>
     
 }
 
-public sealed class GetReservationsQueryHandler(IReservationRepository reservationRepository, IClientRepository clientRepository) : QueryHandler<GetReservationsQuery, IReadOnlyList<ReservationDto>>
+public sealed class GetReservationsQueryHandler(ITableRepository tableRepository, IRestaurantRepository restaurantRepository, IReservationRepository reservationRepository, IClientRepository clientRepository) : QueryHandler<GetReservationsQuery, IReadOnlyList<ReservationDto>>
 {
     public override async Task<Result<IReadOnlyList<ReservationDto>>> Handle(GetReservationsQuery request, CancellationToken cancellationToken)
     {
@@ -20,6 +20,10 @@ public sealed class GetReservationsQueryHandler(IReservationRepository reservati
         var clientIds = reservations.Select(x => x.ClientId).ToList();
         var clients = await clientRepository.ListAsync(x => clientIds.Contains(x.Id), cancellationToken);
         var clientsById = clients.ToDictionary(x => x.Id);
+        var tables = await tableRepository.ListAsync(x => reservations.Select(x => x.Table.TableId).Contains(x.Id), cancellationToken);
+        var restaurants = await restaurantRepository.ListAsync(x => reservations.Select(x => x.RestaurantId).Contains(x.Id), cancellationToken);
+        var restDict = restaurants.ToDictionary(x => x.Id);
+        var tablesDict = tables.ToDictionary(x => x.Id);
         
         var result = reservations.Select(x => new ReservationDto()
         {
@@ -33,7 +37,9 @@ public sealed class GetReservationsQueryHandler(IReservationRepository reservati
             ClientEmail = clientsById[(long)x.ClientId].Email,
             ClientPhone = clientsById[(long)x.ClientId].PhoneNumber,
             ClientName = clientsById[(long)x.ClientId].Name,
-            Status = x.Status
+            Status = x.Status,
+            TableName = tablesDict[x.Table.TableId].Title,
+            RestaurantName = restDict[x.RestaurantId].Title,
         }).ToList();
         return Successful(result);
     }

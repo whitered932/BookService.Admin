@@ -12,7 +12,7 @@ public class GetReservationQuery : Query<ReservationDto>
     [FromRoute] public long Id { get; set; }
 }
 
-public sealed class GetReservationQueryHandler(IReservationRepository reservationRepository, IClientRepository clientRepository) : QueryHandler<GetReservationQuery, ReservationDto>
+public sealed class GetReservationQueryHandler(ITableRepository tableRepository, IReservationRepository reservationRepository, IClientRepository clientRepository, IRestaurantRepository restaurantRepository) : QueryHandler<GetReservationQuery, ReservationDto>
 {
     public override async Task<Result<ReservationDto>> Handle(GetReservationQuery request, CancellationToken cancellationToken)
     {
@@ -26,6 +26,9 @@ public sealed class GetReservationQueryHandler(IReservationRepository reservatio
         {
             return Error(ClientNotFoundError.Instance);
         }
+
+        var restaurant = await restaurantRepository.SingleOrDefaultAsync(x => reservation.RestaurantId == x.Id, cancellationToken);
+        var table = await tableRepository.SingleOrDefaultAsync(x => reservation.Table.TableId == x.Id, cancellationToken);
         var result = new ReservationDto()
         {
             Comment = reservation.Comment,
@@ -33,12 +36,14 @@ public sealed class GetReservationQueryHandler(IReservationRepository reservatio
             Date = ((DateTimeOffset)reservation.DateUtc).ToUnixTimeMilliseconds(),
             RestaurantId = reservation.RestaurantId,
             TableId = reservation.Table.TableId,
+            TableName = table?.Title ?? "Неизвестно",
             ReservedPlacesCount = reservation.Table.PlaceIds.Count,
             Id = reservation.Id,
             ClientEmail = client.Email,
             ClientPhone = client.PhoneNumber,
             ClientName = client.Name,
-            Status = reservation.Status
+            Status = reservation.Status,
+            RestaurantName = restaurant?.Title ?? "Неизвестно"
         };
 
         return Successful(result);
