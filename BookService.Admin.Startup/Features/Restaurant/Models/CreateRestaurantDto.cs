@@ -12,6 +12,6 @@ public class CreateRestaurantDto
     public KitchenType KitchenType { get; set; }
     public double Cost { get; set; }
     public int ReservationThreshold { get; set; }
-    public List<RestaurantPictureDto> Pictures { get; set; } = [];
-    public List<RestaurantMenuItemDto> Menu { get; set; } = [];
+    public List<RestaurantPictureDto> Pictures { get; set; }
+    public List<RestaurantMenuItemDto> Menu { get; set; }
 }

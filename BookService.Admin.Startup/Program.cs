@@ -21,6 +21,8 @@ builder.Services.RegisterRepository<ITableRepository, TableRepository>();
 builder.Services.RegisterRepository<IReservationRepository, ReservationRepository>();
 builder.Services.RegisterRepository<IClientRepository, ClientRepository>();
 builder.Services.RegisterRepository<IAuthorizationTokenRepository, AuthorizationTokenRepository>();
+builder.Services.RegisterRepository<IEmployeeRepository, EmployeeRepository>();
+
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -30,6 +32,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 
 builder.Services.AddScoped<IEmailSenderService, EmailSenderService>();
+builder.Services.AddScoped<IUserProvider, UserProvider>();
+builder.Services.AddScoped<ICryptService, CryptService>();
 
 
 var db = builder.Configuration.GetConnectionString("DefaultConnection");

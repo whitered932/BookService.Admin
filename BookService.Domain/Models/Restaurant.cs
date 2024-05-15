@@ -39,8 +39,8 @@ public class Restaurant : BaseModel
     public KitchenType KitchenType { get; private set; }
     public double Cost { get; private set; }
     public int ReservationThreshold { get; private set; }
-    public List<RestaurantPicture> Pictures { get; private set; } = [];
-    public List<RestaurantMenuItem> MenuItems { get; private set; } = [];
+    public List<RestaurantPicture> Pictures { get; private set; }
+    public List<RestaurantMenuItem> MenuItems { get; private set; }
 
     public void Update(
         string title,

@@ -1,3 +1,4 @@
+using BookService.Admin.Startup.Features.Client;
 using BookService.Admin.Startup.Features.Client.Auth;
 using BookService.Admin.Startup.Features.Client.Auth.Models;
 using MediatR;

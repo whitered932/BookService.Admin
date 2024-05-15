@@ -32,9 +32,10 @@ public sealed class LoginCommandHandler(IAuthorizationTokenRepository authorizat
         
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Email, client.Email),
-            new Claim("Name", client.Name),
-            new Claim(ClaimTypes.Role, "Client"),
+            new(ClaimTypes.Email, client.Email),
+            new("Name", client.Name),
+            new(ClaimTypes.Role, "Client"),
+            new(ClaimTypes.NameIdentifier, client.Id.ToString())
         };
 
         var claimsIdentity = new ClaimsIdentity(

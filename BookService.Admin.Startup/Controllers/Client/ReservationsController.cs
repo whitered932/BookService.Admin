@@ -9,6 +9,7 @@ public class ReservationsController(IMediator mediator) : BaseController(mediato
 {
     [HttpGet("timeslots")]
     public async Task<ActionResult<IReadOnlyList<TimeSlotDto>>> GetTimeSlots([FromQuery] GetTimeSlotsQuery query) => await Execute(query);
+    
     [HttpPost("reserve")]
     public async Task<IActionResult> Reserve(CreateReservationCommand command) => await Execute(command);
 }
