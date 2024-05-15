@@ -5,12 +5,13 @@ using BookService.Domain.Repositories;
 using Ftsoft.Application.Cqs.Mediatr;
 using Ftsoft.Common.Result;
 using Ftsoft.Domain.Specification;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BookService.Admin.Startup.Features.Client;
 
 public class GetClientReservationQuery : Query<ReservationDto>
 {
-    public long Id { get; set; }
+    [FromRoute] public long Id { get; set; }
 }
 
 public sealed class GetClientReservationQueryHandler(
