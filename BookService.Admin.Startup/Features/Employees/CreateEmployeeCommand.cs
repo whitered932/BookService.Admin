@@ -6,13 +6,14 @@ using BookService.Domain.Models;
 using BookService.Domain.Repositories;
 using Ftsoft.Application.Cqs.Mediatr;
 using Ftsoft.Common.Result;
+using Microsoft.AspNetCore.Mvc;
 using IResult = Ftsoft.Common.Result.IResult;
 
 namespace BookService.Admin.Startup.Features.Employees;
 
 public class CreateEmployeeCommand : Command
 {
-    public CreateEmployeeDto Data { get; set; }
+    [FromBody] public CreateEmployeeDto Data { get; set; }
 }
 
 public sealed class CreateEmployeeCommandHandler(ICryptService cryptService, IEmployeeRepository employeeRepository,

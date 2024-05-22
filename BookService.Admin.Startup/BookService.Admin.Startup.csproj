@@ -26,4 +26,8 @@
       <ProjectReference Include="..\BookService.Infrastructure\BookService.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers\Employee\" />
+    </ItemGroup>
+
 </Project>

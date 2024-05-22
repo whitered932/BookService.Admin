@@ -1,4 +1,5 @@
 using BookService.Domain.Models;
+using BookService.Infrastructure.Storage.Repositories;
 using Ftsoft.Storage;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +17,7 @@ public class BookServiceDbContext : DbContext, IUnitOfWork
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=booking-service;Username=postgres;Password=postgres");
+        optionsBuilder.UseNpgsql("Host=rc1b-ceb7bmifqoko9cxh.mdb.yandexcloud.net;Port=6432;Database=db1;Username=user1;Password=123123123");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,4 +33,5 @@ public class BookServiceDbContext : DbContext, IUnitOfWork
     public DbSet<Client> Clients  { get; set; }
     public DbSet<Employee> Employees  { get; set; }
     public DbSet<AuthorizationToken> AuthorizationTokens  { get; set; }
+    public DbSet<Admin> Admins  { get; set; }
 }

@@ -6,7 +6,7 @@ using Ftsoft.Common.Result;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace BookService.Admin.Startup.Features.Client.Auth;
+namespace BookService.Admin.Startup.Features.Auth;
 
 public class LoginCommand : Command
 {

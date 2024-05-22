@@ -1,3 +1,4 @@
+using BookService.Admin.Startup.Features.Auth;
 using BookService.Admin.Startup.Features.Client;
 using BookService.Admin.Startup.Features.Client.Auth;
 using BookService.Admin.Startup.Features.Client.Auth.Models;
@@ -15,9 +16,4 @@ public class AuthController(IMediator mediator) : ClientBaseController(mediator)
 
     [HttpGet("login")]
     public async Task<IActionResult> Login([FromQuery] LoginCommand command) => await Execute(command);
-    
-    [Authorize]
-    [HttpGet("profile")]
-    public async Task<ActionResult<ClientProfileDto>> Profile([FromQuery] GetProfileQuery query) => await Execute(query);
-
 }

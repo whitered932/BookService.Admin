@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookService.Admin.Startup.Controllers.Client;
 
-public class ReservationsController(IMediator mediator) : BaseController(mediator)
+public class ReservationsController(IMediator mediator) : ClientBaseController(mediator)
 {
     [HttpGet("timeslots")]
     public async Task<ActionResult<IReadOnlyList<TimeSlotDto>>> GetTimeSlots([FromQuery] GetTimeSlotsQuery query) => await Execute(query);

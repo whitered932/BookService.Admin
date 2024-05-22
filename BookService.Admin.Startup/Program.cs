@@ -1,9 +1,12 @@
+using BookService.Admin.Startup.Handlers;
+using BookService.Admin.Startup.Requirements;
 using BookService.Admin.Startup.Services;
 using BookService.Domain.Repositories;
 using BookService.Infrastructure.Storage;
 using BookService.Infrastructure.Storage.Repositories;
 using Ftsoft.Storage.EntityFramework;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +25,8 @@ builder.Services.RegisterRepository<IReservationRepository, ReservationRepositor
 builder.Services.RegisterRepository<IClientRepository, ClientRepository>();
 builder.Services.RegisterRepository<IAuthorizationTokenRepository, AuthorizationTokenRepository>();
 builder.Services.RegisterRepository<IEmployeeRepository, EmployeeRepository>();
+builder.Services.RegisterRepository<IAdminRepository, AdminRepository>();
+
 
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -30,10 +35,33 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.ExpireTimeSpan = TimeSpan.FromDays(1);
         options.SlidingExpiration = true;
     });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", 
+        policyBuilder => 
+            policyBuilder.AddRequirements(
+                new RoleRequirement("Admin") 
+            ));
+    
+    options.AddPolicy("EmployeeOnly", 
+        policyBuilder => 
+            policyBuilder.AddRequirements(
+                new RoleRequirement("Employee") 
+            ));
+    
+    options.AddPolicy("ClientOnly", 
+        policyBuilder => 
+            policyBuilder.AddRequirements(
+                new RoleRequirement("Employee") 
+            ));
+});
+
 
 builder.Services.AddScoped<IEmailSenderService, EmailSenderService>();
 builder.Services.AddScoped<IUserProvider, UserProvider>();
 builder.Services.AddScoped<ICryptService, CryptService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddSingleton<IAuthorizationHandler, RoleHandler>();
 
 
 var db = builder.Configuration.GetConnectionString("DefaultConnection");
