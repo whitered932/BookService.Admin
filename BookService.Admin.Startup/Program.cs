@@ -34,6 +34,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.ExpireTimeSpan = TimeSpan.FromDays(1);
         options.SlidingExpiration = true;
+        options.Cookie.SameSite = SameSiteMode.None;
     });
 builder.Services.AddAuthorization(options =>
 {
@@ -52,7 +53,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ClientOnly", 
         policyBuilder => 
             policyBuilder.AddRequirements(
-                new RoleRequirement("Employee") 
+                new RoleRequirement("Client") 
             ));
 });
 
