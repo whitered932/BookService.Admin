@@ -1,5 +1,4 @@
-﻿using BookService.Admin.Startup.Features.Client.Auth;
-using BookService.Admin.Startup.Features.Employees.Errors;
+﻿using BookService.Admin.Startup.Features.Employees.Errors;
 using BookService.Admin.Startup.Services;
 using BookService.Domain.Repositories;
 using Ftsoft.Application.Cqs.Mediatr;

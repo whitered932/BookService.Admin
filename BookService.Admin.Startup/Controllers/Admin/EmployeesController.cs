@@ -1,7 +1,5 @@
 ﻿using BookService.Admin.Startup.Features.Employees;
 using BookService.Admin.Startup.Features.Employees.Models;
-using BookService.Admin.Startup.Features.Reservations;
-using BookService.Admin.Startup.Features.Reservations.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,4 +1,4 @@
-namespace BookService.Admin.Startup.Features.Client.Auth.Models;
+namespace BookService.Admin.Startup.Features.Client.Models;
 
 public class ClientProfileDto
 {

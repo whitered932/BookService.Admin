@@ -1,18 +1,15 @@
-using BookService.Admin.Startup.Handlers;
-using BookService.Admin.Startup.Requirements;
+using System.Net;
 using BookService.Admin.Startup.Services;
+using BookService.Admin.Startup.Services.Implementations;
 using BookService.Domain.Repositories;
 using BookService.Infrastructure.Storage;
 using BookService.Infrastructure.Storage.Repositories;
 using Ftsoft.Storage.EntityFramework;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
@@ -34,35 +31,24 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.ExpireTimeSpan = TimeSpan.FromDays(1);
         options.SlidingExpiration = true;
-        options.Cookie.SameSite = SameSiteMode.None;
+        options.Events = new CookieAuthenticationEvents
+        {
+            OnRedirectToAccessDenied = context => 
+            {
+                if (context.Request.Path.StartsWithSegments("/api"))
+                {
+                    context.Response.StatusCode = (int)(HttpStatusCode.Unauthorized);
+                }
+                return Task.CompletedTask;
+            },
+        };
     });
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("AdminOnly", 
-        policyBuilder => 
-            policyBuilder.AddRequirements(
-                new RoleRequirement("Admin") 
-            ));
-    
-    options.AddPolicy("EmployeeOnly", 
-        policyBuilder => 
-            policyBuilder.AddRequirements(
-                new RoleRequirement("Employee") 
-            ));
-    
-    options.AddPolicy("ClientOnly", 
-        policyBuilder => 
-            policyBuilder.AddRequirements(
-                new RoleRequirement("Client") 
-            ));
-});
 
 
 builder.Services.AddScoped<IEmailSenderService, EmailSenderService>();
 builder.Services.AddScoped<IUserProvider, UserProvider>();
 builder.Services.AddScoped<ICryptService, CryptService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddSingleton<IAuthorizationHandler, RoleHandler>();
 
 
 var db = builder.Configuration.GetConnectionString("DefaultConnection");

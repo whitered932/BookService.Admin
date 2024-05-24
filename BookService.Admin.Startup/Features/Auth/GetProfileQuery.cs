@@ -1,5 +1,5 @@
-using BookService.Admin.Startup.Features.Client.Auth.Errors;
-using BookService.Admin.Startup.Features.Client.Auth.Models;
+using BookService.Admin.Startup.Features.Client.Errors;
+using BookService.Admin.Startup.Features.Client.Models;
 using BookService.Admin.Startup.Features.Employees.Errors;
 using BookService.Admin.Startup.Features.Reservations.Errors;
 using BookService.Admin.Startup.Services;
@@ -7,7 +7,7 @@ using BookService.Domain.Repositories;
 using Ftsoft.Application.Cqs.Mediatr;
 using Ftsoft.Common.Result;
 
-namespace BookService.Admin.Startup.Features.Client;
+namespace BookService.Admin.Startup.Features.Auth;
 
 public class GetProfileQuery : Query<ClientProfileDto>
 {

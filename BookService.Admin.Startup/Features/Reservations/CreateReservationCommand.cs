@@ -1,5 +1,7 @@
 ﻿using BookService.Admin.Startup.Features.Reservations.Models;
+using BookService.Admin.Startup.Features.Restaurant.Errors;
 using BookService.Admin.Startup.Features.Tables.Errors;
+using BookService.Admin.Startup.Services;
 using BookService.Domain.Models;
 using BookService.Domain.Models.Enums;
 using BookService.Domain.Repositories;
@@ -15,10 +17,39 @@ public class CreateReservationCommand : Command
 }
 
 public sealed class CreateReservationCommandHandler(
+    IEmployeeRepository employeeRepository, 
+    IUserProvider userProvider,
+    IRestaurantRepository restaurantRepository,
     ITableRepository tableRepository,
     IClientRepository clientRepository,
     IReservationRepository reservationRepository) : CommandHandler<CreateReservationCommand>
 {
+    protected override async Task<Ftsoft.Common.Result.IResult> CanHandle(CreateReservationCommand request,
+        CancellationToken cancellationToken)
+    {
+        if (userProvider.Role == "Admin")
+        {
+            return Successful();
+        }
+
+        var id = long.Parse(userProvider.Id!);
+        var employee = await employeeRepository.SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
+        if (employee is null)
+        {
+            return Error(RestaurantNotFoundError.Instance);
+        }
+
+        var restaurant =
+            await restaurantRepository.SingleOrDefaultAsync(x => x.Id == employee.RestaurantId,
+                cancellationToken);
+        if (restaurant is null || request.Data.RestaurantId != restaurant.Id)
+        {
+            return Error(RestaurantNotFoundError.Instance);
+        }
+
+        return Successful();
+    }
+
     public override async Task<Result> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
     {
         var date = DateTime.SpecifyKind(DateTimeOffset.FromUnixTimeMilliseconds(request.Data.Date).DateTime,

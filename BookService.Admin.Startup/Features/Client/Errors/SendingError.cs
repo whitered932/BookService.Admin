@@ -1,6 +1,6 @@
 using Ftsoft.Common.Result;
 
-namespace BookService.Admin.Startup.Features.Client.Auth.Errors;
+namespace BookService.Admin.Startup.Features.Client.Errors;
 
 public class SendingError : Error
 {

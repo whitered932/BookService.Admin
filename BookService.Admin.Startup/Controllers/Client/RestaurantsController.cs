@@ -1,4 +1,3 @@
-using BookService.Admin.Startup.Features.Reservations;
 using BookService.Admin.Startup.Features.Restaurant;
 using BookService.Admin.Startup.Features.Restaurant.Models;
 using MediatR;

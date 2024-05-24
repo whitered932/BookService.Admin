@@ -1,5 +1,4 @@
 using System.Security.Claims;
-using BookService.Admin.Startup.Features.Client.Auth;
 using BookService.Admin.Startup.Features.Restaurant;
 using BookService.Admin.Startup.Features.Restaurant.Models;
 using MediatR;

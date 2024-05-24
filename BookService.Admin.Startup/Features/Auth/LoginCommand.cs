@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using BookService.Admin.Startup.Features.Client.Auth.Errors;
+using BookService.Admin.Startup.Features.Client.Errors;
 using BookService.Domain.Repositories;
 using Ftsoft.Application.Cqs.Mediatr;
 using Ftsoft.Common.Result;

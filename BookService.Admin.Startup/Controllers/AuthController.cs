@@ -1,6 +1,6 @@
 ﻿using BookService.Admin.Startup.Features.Auth;
 using BookService.Admin.Startup.Features.Client;
-using BookService.Admin.Startup.Features.Client.Auth.Models;
+using BookService.Admin.Startup.Features.Client.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +10,7 @@ namespace BookService.Admin.Startup.Controllers;
 [Route(("api/[controller]"))]
 public class AuthController(IMediator mediator) : BaseController(mediator)
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Employee,Client")]
     [HttpGet("profile")]
     public async Task<ActionResult<ClientProfileDto>> Profile([FromQuery] GetProfileQuery query) => await Execute(query);
     

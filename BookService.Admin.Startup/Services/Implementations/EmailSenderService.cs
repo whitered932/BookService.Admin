@@ -2,7 +2,7 @@ using BookService.Admin.Startup.Services.Models;
 using MailKit.Net.Smtp;
 using MimeKit;
 
-namespace BookService.Admin.Startup.Services;
+namespace BookService.Admin.Startup.Services.Implementations;
 
 public class EmailSenderService : IEmailSenderService
 {

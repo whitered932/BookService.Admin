@@ -1,4 +1,4 @@
-﻿namespace BookService.Admin.Startup.Services;
+﻿namespace BookService.Admin.Startup.Services.Implementations;
 
 public class CryptService : ICryptService
 {

@@ -1,14 +1,12 @@
-using System.Net;
-using BookService.Admin.Startup.Features.Client.Auth.Errors;
+using BookService.Admin.Startup.Features.Client.Errors;
 using BookService.Admin.Startup.Services;
 using BookService.Admin.Startup.Services.Models;
 using BookService.Domain.Models;
 using BookService.Domain.Repositories;
 using Ftsoft.Application.Cqs.Mediatr;
 using Ftsoft.Common.Result;
-using Microsoft.AspNetCore.Identity.UI.Services;
 
-namespace BookService.Admin.Startup.Features.Client.Auth;
+namespace BookService.Admin.Startup.Features.Client;
 
 public class SendEmailCommand : Command
 {

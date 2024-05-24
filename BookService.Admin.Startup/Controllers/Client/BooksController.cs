@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookService.Admin.Startup.Controllers.Client;
 
-[Authorize(Policy = "ClientOnly")]
+[Authorize(Roles = "Client")]
 public class BooksController(IMediator mediator) : ClientBaseController(mediator)
 {
     [HttpGet]

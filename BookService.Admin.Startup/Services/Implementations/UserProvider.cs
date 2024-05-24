@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace BookService.Admin.Startup.Services;
+namespace BookService.Admin.Startup.Services.Implementations;
 
 public class UserProvider(IHttpContextAccessor contextAccessor) : IUserProvider
 {

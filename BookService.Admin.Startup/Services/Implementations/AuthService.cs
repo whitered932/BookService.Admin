@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace BookService.Admin.Startup.Services;
+namespace BookService.Admin.Startup.Services.Implementations;
 
 public class AuthService(IHttpContextAccessor contextAccessor) : IAuthService
 {
