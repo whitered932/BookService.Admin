@@ -57,7 +57,8 @@ public sealed class GetProfileQueryHandler(IAdminRepository adminRepository, IEm
         {
             Email = email!,
             Name = name,
-            PhoneNumber = phone
+            PhoneNumber = phone,
+            Role = role
         };
         return Successful(result);
     }
