@@ -21,6 +21,7 @@ public sealed class GetProfileQueryHandler(IAdminRepository adminRepository, IEm
         var role = userProvider.Role;
         var name = string.Empty;
         var phone = string.Empty;
+        long? restId = null;
         
         switch (role)
         {
@@ -32,6 +33,7 @@ public sealed class GetProfileQueryHandler(IAdminRepository adminRepository, IEm
                 }
                 name = employee.Name;
                 email = employee.Email;
+                restId = employee.RestaurantId;
                 break;
             case "Admin":
                 var admin = await adminRepository.SingleOrDefaultAsync(x => x.Email == email, cancellationToken);
@@ -58,7 +60,8 @@ public sealed class GetProfileQueryHandler(IAdminRepository adminRepository, IEm
             Email = email!,
             Name = name,
             PhoneNumber = phone,
-            Role = role
+            Role = role,
+            RestaurantId = restId
         };
         return Successful(result);
     }
