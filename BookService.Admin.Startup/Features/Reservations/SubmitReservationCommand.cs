@@ -47,7 +47,7 @@ public sealed class SubmitReservationCommandHandler(
         var restaurant =
             await restaurantRepository.SingleOrDefaultAsync(x => x.Id == employee.RestaurantId,
                 cancellationToken);
-        if (restaurant is null || request.ReservationId != restaurant.Id)
+        if (restaurant is null)
         {
             return Error(RestaurantNotFoundError.Instance);
         }

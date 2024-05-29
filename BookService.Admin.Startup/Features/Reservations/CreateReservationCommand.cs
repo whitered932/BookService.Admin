@@ -32,7 +32,13 @@ public sealed class CreateReservationCommandHandler(
             return Successful();
         }
 
+        if (userProvider.Role is null or "Client")
+        {
+            return Successful();
+        }
         var id = long.Parse(userProvider.Id!);
+        
+        
         var employee = await employeeRepository.SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
         if (employee is null)
         {
